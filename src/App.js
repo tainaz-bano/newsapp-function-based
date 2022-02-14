@@ -11,11 +11,14 @@ import {
 } from "react-router-dom";
 import LoadingBar from 'react-top-loading-bar'
 export default function App () {
+
+
+
   const [mode, setmode] = useState('light')
   const [progress, setProgress] = useState(0)
   const toggle= ()=>{
     if(mode==='light'){
-      setmode({mode:'dark'});
+      setmode('dark');
       document.body.style.backgroundColor='#101010';
     }
     else{

@@ -16,7 +16,7 @@ const News = (props) => {
       props.setProgress(10);
       setLoading(true)
       let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=ea5146722055494b8da0d6568c2686d3&page=${page}&pageSize=${props.pageSize}`;
-      console.log(page);
+    
       let data = await fetch(url);
       let parseddata = await data.json();
       setarticle(parseddata.articles)
@@ -32,26 +32,23 @@ const News = (props) => {
 
 
   const fetchMoreData = async () => {
-    const pageno=await page;
-    setpage(pageno+1)
-    console.log(pageno);
-    let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=ea5146722055494b8da0d6568c2686d3&page=${page}&pageSize=${props.pageSize}`;
+
+    let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=ea5146722055494b8da0d6568c2686d3&page=${page+1}&pageSize=${props.pageSize}`;
+    setpage(page+1)
     let data = await fetch(url);
     let parseddata = await data.json();
-    console.log(parseddata);
     setarticle(article.concat(parseddata.articles))
     settotalarticle(parseddata.totalResults)
     setLoading(false)
   };
 
 
-  let { mode } = props;
 
   return (
 
     <>
       <div className='container my-3'>
-        <h2 className='text-center' style={{ color: mode === 'dark' ? 'white' : 'black' }}>NewsMonkey - Top Headlines</h2>
+        <h2 className='text-center top-headlines' style={{ color: props.mode === 'dark' ? 'white' : 'black'}}>NewsMonkey - Top Headlines</h2>
         {loading && <Spinner />}
         <InfiniteScroll
           dataLength={article.length}
